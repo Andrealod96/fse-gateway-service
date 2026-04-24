@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "63809f4d686c0e070ff79a78"
+  },
+  "key": "STATUS_MANAGER",
+  "config_items": {
+    "expiring-date-day": "365"
+  }
+},
+{
+  "_id": {
+    "$oid": "63877d1edbbd6b046332373b"
+  },
+  "key": "GARBAGE",
+  "config_items": {
+    "SUCCESS": "1",
+    "BLOCKING_ERROR": "0",
+    "NON_BLOCKING_ERROR": "0",
+    "VALIDATED_DOCUMENT_RETENTION_DAY": "0",
+    "CFG_ITEMS_RETENTION_DAY": "5"
+  }
+},
+{
+  "_id": {
+    "$oid": "6582c2feb2c38c46f45ce5ec"
+  },
+  "key": "GENERIC",
+  "config_items": {
+    "control-log-persistence-enabled": "false",
+    "issuer-cf-cleaning": "false",
+    "subject-cleaning": "false",
+    "audit-enabled": "false",
+    "delete-early-strategy": "false",
+    "cfg-items-retention-day": "5",
+    "validated-document-retention-day": "5",
+    "expiring-date-day": "20",
+    "remove-eds-enabled": "true",
+    "audit-ini-enabled": "true"
+  }
+},
+{
+  "_id": {
+    "$oid": "6582c326b2c38c46f45ce5ed"
+  },
+  "key": "INI_CLIENT",
+  "config_items": {
+    "kpi-log-persistence-enabled": "true",
+    "audit-ini-enabled": "true",
+    "delete-early-strategy": "true"
+  }
+}]

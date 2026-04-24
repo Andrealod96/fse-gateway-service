@@ -1,0 +1,11 @@
+# pack-refs with: peeled fully-peeled sorted 
+71355ff91acc6549a004db1676be8eb29dae8cce refs/remotes/origin/feat/aggiornamento-checklist
+353eef9ce497b7cb72d13082afaf29a3b56506b1 refs/remotes/origin/feat/remove_email_from_data.json
+2d810d86fc291a19ffd2f83017ad3dbbb59c3f5a refs/remotes/origin/feature/main-dev
+2d810d86fc291a19ffd2f83017ad3dbbb59c3f5a refs/remotes/origin/feature/main-val
+d3bf7ad1c17830c25e8ed3126cbf41c7080eff28 refs/remotes/origin/fix/json-fix-endoxweb
+b1b9df30eac2ac3490664f75f3d27cdf0fccc7df refs/remotes/origin/fv456-patch-1
+6c65b85d2c45558792854e6daeeb61d4514d3762 refs/remotes/origin/main
+91b85f96ac192c9a1f6e1b1783b6397e7412303e refs/remotes/origin/revert-1628-GATEWAY/A1#111ACODAT/ACODAT/ACO_FSE/V.2.0
+c3bd516c2aa5f1abcf25465df5d6e442e8524d3c refs/remotes/origin/revert-2315-main
+aef58b94bcc63c4d51c98e23eafc101147acc199 refs/remotes/origin/revert-2542-main
