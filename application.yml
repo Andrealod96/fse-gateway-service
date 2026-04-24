@@ -1,0 +1,109 @@
+spring:
+  application:
+    name: fse-rsa-service
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: Europe/Rome
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  codec:
+    max-in-memory-size: 20MB
+
+server:
+  port: 8080
+  shutdown: graceful
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+      base-path: /actuator
+
+logging:
+  level:
+    root: INFO
+    it.thcs.fse: INFO
+    org.flywaydb: INFO
+
+fse:
+  gateway:
+    validation-path: /documents/validation
+    validate-and-create-path: /documents/validate-and-create
+    status-by-workflow-path: /status/{workflowInstanceId}
+    status-by-trace-path: /status/search/{traceId}
+    connect-timeout-millis: 10000
+    read-timeout-seconds: 60
+    write-timeout-seconds: 60
+    response-timeout-seconds: 90
+
+  security:
+    oauth2:
+      enabled: false
+      token-uri:
+      client-id:
+      client-secret:
+      grant-type: client_credentials
+      scope: []
+
+  cda:
+    template-id-root: 2.16.840.1.113883.2.9.10.1.9.1
+    template-id-extension: "1.1"
+    code-system-loinc: 2.16.840.1.113883.6.1
+    code-system-icd9cm: 2.16.840.1.113883.6.103
+    confidentiality-code-system: 2.16.840.1.113883.5.25
+    type-id-root: 2.16.840.1.113883.1.3
+    type-id-extension: POCD_MT000040UV02
+    document-code-rsa: 11488-4
+    document-title: Referto di Specialistica Ambulatoriale
+    language-code: it-IT
+    realm-code: IT
+
+  oid:
+    hl7-italia-root: 2.16.840.1.113883.2.9
+    codice-fiscale-root: 2.16.840.1.113883.2.9.4.3.2
+    puglia-root: 2.16.840.1.113883.2.9.2.160
+    puglia-cda-document-root: 2.16.840.1.113883.2.9.2.160.4.4
+    puglia-operator-root: 2.16.840.1.113883.2.9.2.160.4.2
+    puglia-structure-root: 2.16.840.1.113883.2.9.2.160.4.11
+    puglia-prescription-root: 2.16.840.1.113883.2.9.2.160.4.8
+
+  storage:
+    working-dir: ./work
+    input-dir: ./work/input
+    output-dir: ./work/output
+    cda-dir: ./work/output/cda
+    pdf-dir: ./work/output/pdf
+    signed-pdf-dir: ./work/output/pdf/signed
+    accreditation-dir: ./work/accreditamento
+
+  validation:
+    xsd:
+      enabled: true
+      schema-path: classpath:validation/xsd/CDA.xsd
+    schematron:
+      enabled: true
+      rsa-path: classpath:validation/schematron/schematron_RSA_v8.3.sch
+    terminology:
+      enabled: true
+      catalogs-base-path: classpath:validation/terminology
+
+  accreditation:
+    enabled: true
+    generate-data-json: true
+    generate-report-artifacts: true

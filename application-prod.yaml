@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+management:
+  endpoint:
+    health:
+      show-details: when_authorized
+
+logging:
+  level:
+    root: INFO
+    it.thcs.fse: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: WARN
+    org.flywaydb: INFO
+
+fse:
+  gateway:
+    base-url: ${FSE_GATEWAY_BASE_URL}
+
+  security:
+    mtls:
+      enabled: true
+      key-store-path: ${FSE_MTLS_KEYSTORE_PATH}
+      key-store-type: ${FSE_MTLS_KEYSTORE_TYPE:PKCS12}
+      key-store-password: ${FSE_MTLS_KEYSTORE_PASSWORD}
+      key-alias: ${FSE_MTLS_KEY_ALIAS}
+      trust-store-path: ${FSE_MTLS_TRUSTSTORE_PATH}
+      trust-store-type: ${FSE_MTLS_TRUSTSTORE_TYPE:PKCS12}
+      trust-store-password: ${FSE_MTLS_TRUSTSTORE_PASSWORD}
+
+  signature:
+    enabled: true
+    key-store-path: ${FSE_SIGNATURE_KEYSTORE_PATH}
+    key-store-type: ${FSE_SIGNATURE_KEYSTORE_TYPE:PKCS12}
+    key-store-password: ${FSE_SIGNATURE_KEYSTORE_PASSWORD}
+    private-key-password: ${FSE_SIGNATURE_PRIVATE_KEY_PASSWORD:${FSE_SIGNATURE_KEYSTORE_PASSWORD}}
+    key-alias: ${FSE_SIGNATURE_KEY_ALIAS}
+    signed-pdf-dir: ${FSE_SIGNATURE_SIGNED_PDF_DIR:./work/output/signed}
+    reason: ${FSE_SIGNATURE_REASON:Firma documento clinico RSA}
+    location: ${FSE_SIGNATURE_LOCATION:THCS}
+    contact-info: ${FSE_SIGNATURE_CONTACT_INFO:}

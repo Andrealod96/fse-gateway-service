@@ -1,0 +1,78 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3307/fse_rsa_service?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Europe/Rome
+    username: fse_rsa_app
+    password: fse_rsa_app_pwd
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: INFO
+    it.thcs.fse: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: WARN
+    org.flywaydb: INFO
+
+fse:
+
+  # --- BLOCCO 1: API key in ingresso (obbligatorio per SecurityConfig) ---
+  security:
+    api-key: thcs-fse-rsa-local-2024
+    mtls:
+      enabled: false          # in locale senza certificati Sogei lascia false
+      key-store-path: classpath:certs/fse-keystore.p12
+      key-store-type: PKCS12  # FIX: era PKCS12 ma il file era .jks — scegli uno
+      key-store-password: FSEIntegration
+      key-alias: certificato-autenticazione
+      trust-store-path: classpath:certs/truststore-fse.p12
+      trust-store-type: PKCS12  # FIX: stesso problema
+      trust-store-password: FSEIntegration
+
+  # --- BLOCCO 2: Gateway FSE (mancavano i path e i timeout) ---
+  gateway:
+    base-url: http://localhost:8010   # Docker ministeriale locale
+    validation-path: /v1/documents/validation
+    validate-and-create-path: /v1/documents/validate-and-create
+    status-by-workflow-path: /v1/documents/{workflowInstanceId}/status
+    status-by-trace-path: /v1/documents/status/search/{traceId}
+    connect-timeout-millis: 5000
+    read-timeout-seconds: 30
+    write-timeout-seconds: 30
+    response-timeout-seconds: 60
+    default-subject-role: AAS
+
+  # --- BLOCCO 3: JWT (mancava completamente) ---
+  jwt:
+    enabled: true
+    key-store-path: classpath:certs/certificato-firma.p12
+    key-store-type: PKCS12
+    key-store-password: FSEIntegration
+    key-alias: certificato-firma
+    audience: FSE_Gateway          # Docker locale — in staging Sogei cambia con l'URL completo
+    issuer-identifier: "120201"    # Docker locale — in produzione Sogei lascia vuoto (usa il CN del certificato)
+    expiration-seconds: 3600
+    purpose-of-use: TREATMENT
+    locality: "AUSL-TEST"
+    subject-organization: Regione Lazio
+    subject-organization-id: "120"
+    subject-application-id: fse-rsa-service
+    subject-application-vendor: THCS SRL
+    subject-application-version: 1.0.0
+
+  signature:
+    enabled: true
+    key-store-path: classpath:certs/certificato-firma.p12
+    key-store-type: PKCS12
+    key-store-password: FSEIntegration
+    private-key-password: FSEIntegration
+    key-alias: certificato-firma
+    signed-pdf-dir: ./work/output/signed
+    reason: Firma documento clinico RSA
+    location: THCS
+    contact-info: support@thcs.it
